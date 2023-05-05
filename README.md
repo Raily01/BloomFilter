@@ -51,6 +51,7 @@ ITIS DataMining lab
 
 
 Для демонстрации работы фильтра Блума на песне "Лесник" группы "Король и Шут" мы можем использовать код, который мы написали ранее для построения фильтра.
+
     import pyhash
     from bitarray import bitarray
     import math
@@ -75,6 +76,7 @@ ITIS DataMining lab
     print("Количество хеш-функций (number of hash functions):", k)
 
 Теперь мы можем проверить, что фильтр Блума правильно работает. Для этого мы можем использовать следующий код:
+
     # Проверяем слово, которого нет в тексте
     test_word = "корабль"
     hash_funcs = [pyhash.fnv1a_32(i) for i in range(k)]
