@@ -2,39 +2,39 @@
 
 
 
-words = song_lyrics.split()
+    words = song_lyrics.split()
 
-# Определяем оптимальную длину фильтра и количество хеш-функций
-n = len(words) # число элементов
-p = 0.05 # желаемая вероятность ложного срабатывания
-m = - (n * math.log(p)) / ((math.log(2)) ** 2) # оптимальная длина Блум-фильтра
-k = (m / n) * math.log(2) # оптимальное количество хеш-функций
+    # Определяем оптимальную длину фильтра и количество хеш-функций
+    n = len(words) # число элементов
+    p = 0.05 # желаемая вероятность ложного срабатывания
+    m = - (n * math.log(p)) / ((math.log(2)) ** 2) # оптимальная длина Блум-фильтра
+    k = (m / n) * math.log(2) # оптимальное количество хеш-функций
 
-# Создаем фильтр Блума
-bit_vector = [0] * int(m)
-hash_funcs = [pyhash.fnv1a_32(i) for i in range(int(k))] # список хеш-функций
+    # Создаем фильтр Блума
+    bit_vector = [0] * int(m)
+    hash_funcs = [pyhash.fnv1a_32(i) for i in range(int(k))] # список хеш-функций
 
-# Добавляем слова в фильтр
-for word in words:
-    for i in range(len(hash_funcs)):
-        index = hash_funcs[i](word) % int(m)
-        bit_vector[index] = 1
+    # Добавляем слова в фильтр
+    for word in words:
+        for i in range(len(hash_funcs)):
+            index = hash_funcs[i](word) % int(m)
+            bit_vector[index] = 1
+
         
         
-        
-import random
+    import random
 
-# Генерируем 10000 случайных строк длины 10 символов
-random_strings = ["".join(random.choices(chars, k=10)) for i in range(10000)]
+    # Генерируем 10000 случайных строк длины 10 символов
+    random_strings = ["".join(random.choices(chars, k=10)) for i in range(10000)]
 
-# Проверяем, сколько из них будет ложно определено фильтром
-false_positives = 0
-for s in random_strings:
-    if bloom_filter.check(s):
-        false_positives += 1
+    # Проверяем, сколько из них будет ложно определено фильтром
+    false_positives = 0
+    for s in random_strings:
+        if bloom_filter.check(s):
+            false_positives += 1
 
-false_positive_rate = false_positives / len(random_strings)
-print("False Positive Rate:", false_positive_rate)
+    false_positive_rate = false_positives / len(random_strings)
+    print("False Positive Rate:", false_positive_rate)
 
 
 
